@@ -15,7 +15,7 @@ const Marquee = async () => {
   );
   const data = await res.json();
   const marqueeData: IMarqueeProps[] = data.slice(0, 10);
-  console.log(marqueeData);
+  // console.log(marqueeData);
   return (
     <div className="border-b border-gray-200 bg-gray-50 py-3">
       <MarqueeText direction="right" duration={15}>
