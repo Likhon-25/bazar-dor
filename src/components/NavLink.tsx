@@ -2,26 +2,35 @@
 
 import Link from "next/link";
 
+interface INavsProps {
+  id: string;
+  slug: string;
+  icon: string;
+  nameBn: string;
+}
 
 const NavLink = async () => {
   const res = await fetch(
     "https://api.api-store.workers.dev/api/bazardor/categories",
   );
-  const data = await res.json();
-  console.log(data);
+  const data: INavsProps[] = await res.json();
+
   return (
-    <div className="flex ">
-        {
-            data.map((navs) => (
-                <Link className="flex gap-3" key={navs.id} href={navs.slug}>
-                    
-                    <h2>{navs.nameBn}</h2>
-                    <span>{navs.icon}</span>
-                </Link>
-            ))
-        }
-    </div>
-  )
+    <nav className="border-b border-gray-200 bg-white">
+      <div className="container mx-auto flex items-center gap-2 overflow-x-auto px-4 py-3">
+        {data.map((navs: INavsProps) => (
+          <Link
+            key={navs.id}
+            href={`/${navs.slug}`}
+            className="flex  items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition hover:text-green-800"
+          >
+            <span className="text-base">{navs.icon}</span>
+            <span>{navs.nameBn}</span>
+          </Link>
+        ))}
+      </div>
+    </nav>
+  );
 };
 
 export default NavLink;
